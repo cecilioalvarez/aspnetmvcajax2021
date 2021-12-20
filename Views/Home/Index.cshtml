@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+      $("#boton").click(function() {
+
+          alert("has pulsado");
+      })
+    })
+</script>
+
+<table>
+    <tr>
+        <th>textos</th>
+    </tr>
+
+    @foreach (var texto in ViewBag.textos)
+    {
+        <tr>
+            <td>@texto</td>
+        </tr>
+    }
+</table>
+<input type="button" value="aceptar" id="boton"/>
+
+
+
+</div>
