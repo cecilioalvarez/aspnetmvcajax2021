@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+            $("#boton").click(function() {
+
+
+                $.getJSON("/home/listafacturasjson",function(datos) {
+                        console.log(datos);
+                       for (let i=0;i<datos.length;i++) {
+
+                           $("#mitabla").append("<tr><td>"+datos[i].numero
+                                                +"</td><td>"+datos[i].concepto+"</td><td>"+
+                                                    datos[i].importe+"</td></tr>");
+                       }
+                })
+            });
+         
+    })
+</script>
+
+<table id="mitabla">
+    <tr>
+        <th>Numero</th>
+        <th>Concepto</th>
+        <th>Importe</th>
+    </tr>
+
+    @foreach (var factura in ViewBag.listaFacturas)
+    {
+        <tr>
+            <td>@factura.Numero</td>
+            <td>@factura.Concepto</td>
+            <td>@factura.Importe</td>
+
+        </tr>
+    }
+</table>
+<input type="button" value="aceptar" id="boton"/>
+
+
+
+</div>

@@ -35,9 +35,41 @@ namespace mvcajax.Controllers
             return View();
         }
 
+         public IActionResult ListaFacturas()
+        {
+            FacturaRepository repo= new FacturaRepository();
+            ViewBag.listafacturas = repo.BuscarTodas();
+            return View();
+        }
+
+          public JsonResult ListaFacturasJSON()
+        {
+            FacturaRepository repo= new FacturaRepository();
+            List<Factura> lista = repo.BuscarTodas();
+            
+            return Json(lista);  
+        }
+         public JsonResult ListaFacturasJSONFiltro(string concepto)
+        {
+            FacturaRepository repo= new FacturaRepository();
+
+            
+            List<Factura> lista;
+            if (concepto!=null) {
+                lista= repo.BuscarTodasPorConcepto(concepto);
+            } else {
+                lista=repo.BuscarTodas();
+            }
+            
+           
+            
+            return Json(lista);  
+        }
+
+
         public ActionResult Datos()
         {
-            return Content("tu");
+            return Content("tu del servidor");
         }
 
         public IActionResult Privacy()
