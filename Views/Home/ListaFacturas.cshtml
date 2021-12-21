@@ -13,12 +13,29 @@
                         console.log(datos);
                        for (let i=0;i<datos.length;i++) {
 
-                           $("#mitabla").append("<tr><td>"+datos[i].numero
+                           $("#mitabla2").append("<tr><td>"+datos[i].numero
                                                 +"</td><td>"+datos[i].concepto+"</td><td>"+
                                                     datos[i].importe+"</td></tr>");
                        }
                 })
             });
+
+            $("#filtroconcepto").keyup(function() {
+
+                console.log($(this).val());
+
+                $.getJSON("/home/ListaFacturasJSONFiltro?concepto="+$(this).val(),function(datos) {
+                        console.log(datos);
+                        $("#mitabla2").empty();
+                       for (let i=0;i<datos.length;i++) {
+
+                           $("#mitabla2").append("<tr><td>"+datos[i].numero
+                                                +"</td><td>"+datos[i].concepto+"</td><td>"+
+                                                    datos[i].importe+"</td></tr>");
+                       }
+                })
+
+            })
          
     })
 </script>
@@ -40,6 +57,13 @@
         </tr>
     }
 </table>
+<hr>
+filtrar concepto<input type="text" id="filtroconcepto"/>
+<table id="mitabla2">
+
+
+</table>
+
 <input type="button" value="aceptar" id="boton"/>
 
 
