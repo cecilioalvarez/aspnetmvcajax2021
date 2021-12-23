@@ -16,5 +16,8 @@ namespace mvcajax.Models
             this.Importe=Importe;
 
         }
+        public Factura() {
+            
+        }
     }
 }

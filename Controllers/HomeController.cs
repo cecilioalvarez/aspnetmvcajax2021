@@ -35,35 +35,51 @@ namespace mvcajax.Controllers
             return View();
         }
 
-         public IActionResult ListaFacturas()
+        public IActionResult ListaFacturas()
         {
-            FacturaRepository repo= new FacturaRepository();
+            FacturaRepository repo = new FacturaRepository();
             ViewBag.listafacturas = repo.BuscarTodas();
             return View();
         }
 
-          public JsonResult ListaFacturasJSON()
+        public IActionResult FormularioInsertar()
         {
-            FacturaRepository repo= new FacturaRepository();
-            List<Factura> lista = repo.BuscarTodas();
-            
-            return Json(lista);  
+            return View();
         }
-         public JsonResult ListaFacturasJSONFiltro(string concepto)
-        {
-            FacturaRepository repo= new FacturaRepository();
 
-            
+
+        public IActionResult Insertar(Factura factura)
+        {
+            FacturaRepository repo = new FacturaRepository();
+            repo.Insertar(factura);
+            return RedirectToAction("ListaFacturas","Home");
+        }
+
+        public JsonResult ListaFacturasJSON()
+        {
+            FacturaRepository repo = new FacturaRepository();
+            List<Factura> lista = repo.BuscarTodas();
+
+            return Json(lista);
+        }
+        public JsonResult ListaFacturasJSONFiltro(string concepto)
+        {
+            FacturaRepository repo = new FacturaRepository();
+
+
             List<Factura> lista;
-            if (concepto!=null) {
-                lista= repo.BuscarTodasPorConcepto(concepto);
-            } else {
-                lista=repo.BuscarTodas();
+            if (concepto != null)
+            {
+                lista = repo.BuscarTodasPorConcepto(concepto);
             }
-            
-           
-            
-            return Json(lista);  
+            else
+            {
+                lista = repo.BuscarTodas();
+            }
+
+
+
+            return Json(lista);
         }
 
 
