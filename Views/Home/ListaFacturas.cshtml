@@ -5,6 +5,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
+        $("#formularioinsertar").hide();
         $.getJSON("/home/listafacturasjson", function (datos) {
             for (let i = 0; i < datos.length; i++) {
 
@@ -15,11 +16,16 @@
                                         </tr>`);
             }
         })
+        $("#botonNuevo").click(function() {
+
+            $("#listado").hide();
+            $("#formularioinsertar").show();
+        })
     });
 
 
 </script>
-
+<div id="listado">
 <table id="mitabla">
     <tr>
         <th>Numero</th>
@@ -28,12 +34,28 @@
     </tr>
 </table>
 
+<input type="button" value="insertar" id="botonNuevo" />
+</div>
+<div id="formularioinsertar">
+<form action="/home/insertar">
 
-
-
-<form action="/home/formularioinsertar">
-    <input type="submit" value="insertar" id="boton" />
+<p>
+    Numero<input type="text" name="numero"/>
+</p>
+<p>
+    Concepto<input type="text" name="concepto"/>
+  </p>
+  <p>
+    Importe<input type="text" name="importe"/>
+</p>
+<p>
+    <input type="submit" value="aceptar"/>
+</p>
 </form>
+</div>
+
+
+
 
 
 
