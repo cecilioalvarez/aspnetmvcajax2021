@@ -21,6 +21,16 @@
             $("#listado").hide();
             $("#formularioinsertar").show();
         })
+
+        $("#botonInsertar").click(function(){
+
+            var factura={};
+            factura.numero=$("#numero").val();
+            factura.concepto=$("#concepto").val();
+            factura.importe=$("#importe").val();
+            console.log(factura);
+
+        })
     });
 
 
@@ -37,19 +47,19 @@
 <input type="button" value="insertar" id="botonNuevo" />
 </div>
 <div id="formularioinsertar">
-<form action="/home/insertar">
+<form >
 
 <p>
-    Numero<input type="text" name="numero"/>
+    Numero<input type="text" name="numero" id="numero"/>
 </p>
 <p>
-    Concepto<input type="text" name="concepto"/>
+    Concepto<input type="text" name="concepto" id="concepto" />
   </p>
   <p>
-    Importe<input type="text" name="importe"/>
+    Importe<input type="text" name="importe" id="importe"/>
 </p>
 <p>
-    <input type="submit" value="aceptar"/>
+    <input type="button"  id="botonInsertar" value="aceptar"/>
 </p>
 </form>
 </div>
