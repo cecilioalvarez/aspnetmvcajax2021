@@ -46,7 +46,16 @@ namespace mvcajax.Controllers
         {
             return View();
         }
-
+        [HttpPost]
+        public IActionResult InsertarJSON( [FromBody] Factura factura)
+        {
+            Console.WriteLine(factura.Numero);
+            Console.WriteLine(factura.Concepto);
+            Console.WriteLine(factura.Importe);
+            FacturaRepository repo = new FacturaRepository();
+            repo.Insertar(factura);
+            return Json("Success");
+        }
 
         public IActionResult Insertar(Factura factura)
         {

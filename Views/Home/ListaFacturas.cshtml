@@ -6,7 +6,52 @@
     $(document).ready(function () {
 
         $("#formularioinsertar").hide();
-        $.getJSON("/home/listafacturasjson", function (datos) {
+        buscarTodos();
+        
+        $("#botonNuevo").click(function () {
+
+            $("#listado").hide();
+            $("#formularioinsertar").show();
+        })
+
+        $("#botonInsertar").click(function () {
+
+            var factura = {};
+            factura.numero = $("#numero").val();
+            factura.concepto = $("#concepto").val();
+            factura.importe = $("#importe").val();
+            console.log(factura);
+
+            // muy manual con jquery y ajax para enviar datos al servidor en json
+            $.ajax({
+                url: "/home/insertarjson",
+                type: "POST",
+                data: JSON.stringify(factura),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                error: function (response) {
+                    alert(response.responseText);
+                },
+                success: function (response) {
+
+
+                    $("#listado").show();
+                    $("#formularioinsertar").hide();
+                    $("#mitabla").empty();
+                    buscarTodos();
+                }
+            });
+
+
+
+
+
+        })
+    });
+
+    function buscarTodos() {
+
+$.getJSON("/home/listafacturasjson", function (datos) {
             for (let i = 0; i < datos.length; i++) {
 
                 $("#mitabla").append(`<tr>
@@ -16,52 +61,38 @@
                                         </tr>`);
             }
         })
-        $("#botonNuevo").click(function() {
 
-            $("#listado").hide();
-            $("#formularioinsertar").show();
-        })
-
-        $("#botonInsertar").click(function(){
-
-            var factura={};
-            factura.numero=$("#numero").val();
-            factura.concepto=$("#concepto").val();
-            factura.importe=$("#importe").val();
-            console.log(factura);
-
-        })
-    });
+    }
 
 
 </script>
 <div id="listado">
-<table id="mitabla">
-    <tr>
-        <th>Numero</th>
-        <th>Concepto</th>
-        <th>Importe</th>
-    </tr>
-</table>
+    <table id="mitabla">
+        <tr>
+            <th>Numero</th>
+            <th>Concepto</th>
+            <th>Importe</th>
+        </tr>
+    </table>
 
-<input type="button" value="insertar" id="botonNuevo" />
+    <input type="button" value="insertar" id="botonNuevo" />
 </div>
 <div id="formularioinsertar">
-<form >
+    <form>
 
-<p>
-    Numero<input type="text" name="numero" id="numero"/>
-</p>
-<p>
-    Concepto<input type="text" name="concepto" id="concepto" />
-  </p>
-  <p>
-    Importe<input type="text" name="importe" id="importe"/>
-</p>
-<p>
-    <input type="button"  id="botonInsertar" value="aceptar"/>
-</p>
-</form>
+        <p>
+            Numero<input type="text" name="numero" id="numero" />
+        </p>
+        <p>
+            Concepto<input type="text" name="concepto" id="concepto" />
+        </p>
+        <p>
+            Importe<input type="text" name="importe" id="importe" />
+        </p>
+        <p>
+            <input type="button" id="botonInsertar" value="aceptar" />
+        </p>
+    </form>
 </div>
 
 
