@@ -33,6 +33,10 @@ namespace mvcajax.Models
 
         }
 
+        public void Borrar(Factura factura){
+            lista.Remove(factura);
+        }
+
         public List<Factura> BuscarTodasPorConcepto(string concepto)
         {
 

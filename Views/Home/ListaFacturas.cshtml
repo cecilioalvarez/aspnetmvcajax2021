@@ -7,7 +7,7 @@
 
         $("#formularioinsertar").hide();
         buscarTodos();
-        
+
         $("#botonNuevo").click(function () {
 
             $("#listado").hide();
@@ -24,13 +24,12 @@
 
             // muy manual con jquery y ajax para enviar datos al servidor en json
             $.ajax({
-                url: "/home/insertarjson",
+                url: "/api/facturas",
                 type: "POST",
                 data: JSON.stringify(factura),
                 contentType: "application/json; charset=utf-8",
-                dataType: "json",
                 error: function (response) {
-                    alert(response.responseText);
+                    console.dir(response);
                 },
                 success: function (response) {
 
@@ -49,15 +48,38 @@
         })
     });
 
+    function borrar(numero) {
+
+        $.ajax({
+                url: "/api/facturas/"+numero,
+                type: "DELETE",
+                contentType: "application/json; charset=utf-8",
+                error: function (response) {
+                    alert(response.responseText);
+                },
+                success: function (response) {
+
+                    $("#mitabla").empty();
+                    buscarTodos();
+                }
+            
+
+
+
+        });
+
+       
+    }
     function buscarTodos() {
 
-$.getJSON("/home/listafacturasjson", function (datos) {
+        $.getJSON("/api/facturas", function (datos) {
             for (let i = 0; i < datos.length; i++) {
 
                 $("#mitabla").append(`<tr>
                                         <td>${datos[i].numero}</td>
                                         <td>${datos[i].concepto}</td>
                                         <td>${datos[i].importe}</td>
+                                        <td><a href="" onclick="borrar(${datos[i].numero});return false;">borrar</a>
                                         </tr>`);
             }
         })

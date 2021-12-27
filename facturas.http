@@ -1,0 +1,14 @@
+http://localhost:5000/api/facturas
+
+###
+POST http://localhost:5000/api/facturas HTTP/1.1
+content-type: application/json
+
+{
+    "numero": 1,
+    "concepto": "auricular airpod",
+    "importe" :200
+}
+
+###
+DELETE http://localhost:5000/api/facturas/1
