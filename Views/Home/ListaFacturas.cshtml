@@ -7,6 +7,7 @@
 
         $("#formularioinsertar").hide();
         $("#detalle").hide();
+        $("#edicion").hide();
         buscarTodos();
 
         $("#botonNuevo").click(function () {
@@ -90,7 +91,7 @@
     function editar(numero) {
 
         $("#listado").hide();
-        $("#editar").show();
+        $("#edicion").show();
 
          $.getJSON("/api/facturas/" + numero, function (factura) {
 
@@ -110,7 +111,31 @@
 
     function salvar() {
 
-        
+        let numero= $("#numeroEditar").val();
+        console.log(numero);
+        let factura={};
+        factura.numero=numero;
+        factura.concepto=$("#conceptoEditar").val();
+        factura.importe=$("#importeEditar").val();
+
+         $.ajax({
+            url: "/api/facturas/" + numero,
+            type: "PUT",
+            data: JSON.stringify(factura),
+            contentType: "application/json; charset=utf-8",
+            error: function (response) {
+                alert(response.responseText);
+            },
+            success: function (response) {
+
+                buscarTodos();
+                $("#mitabla").show();
+                $("#detalle").hide();
+            }
+
+        });
+
+
     }
 
     function buscarTodos() {
@@ -179,7 +204,7 @@
         Importe<input type="text" name="importe" id="importeEditar" />
     </p>
     <p>
-        <input type="button" id="botonEditar" value="aceptar" />
+        <input type="button" id="botonEditar" value="aceptar" onclick="salvar()" />
     </p>
 </div>
 

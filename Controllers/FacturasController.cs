@@ -36,6 +36,13 @@ namespace mvcajax.Controllers
             FacturaRepository repo = new FacturaRepository();
             return repo.BuscarUno(numero);
         }
+        [HttpPut ("{numero:int}")]
+        public Factura Salvar(int numero,Factura factura)
+        {
+
+            FacturaRepository repo = new FacturaRepository();
+            return repo.BuscarUno(numero);
+        }
 
         [HttpPost]
         public void Insertar(Factura factura)
