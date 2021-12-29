@@ -6,6 +6,7 @@
     $(document).ready(function () {
 
         $("#formularioinsertar").hide();
+        $("#detalle").hide();
         buscarTodos();
 
         $("#botonNuevo").click(function () {
@@ -70,6 +71,17 @@
 
        
     }
+
+function detalle(numero) {
+
+        $.getJSON("/api/facturas/"+numero,function (factura) {
+
+                  
+        );
+    }
+
+
+
     function buscarTodos() {
 
         $.getJSON("/api/facturas", function (datos) {
@@ -80,6 +92,7 @@
                                         <td>${datos[i].concepto}</td>
                                         <td>${datos[i].importe}</td>
                                         <td><a href="" onclick="borrar(${datos[i].numero});return false;">borrar</a>
+                                        <td><a href="" onclick="detalle(${datos[i].numero});return false;">detalle</a>
                                         </tr>`);
             }
         })
@@ -115,6 +128,11 @@
             <input type="button" id="botonInsertar" value="aceptar" />
         </p>
     </form>
+</div>
+<div id="detalle">
+
+    detalle
+
 </div>
 
 

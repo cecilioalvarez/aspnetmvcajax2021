@@ -37,6 +37,24 @@ namespace mvcajax.Models
             lista.Remove(factura);
         }
 
+
+         public Factura BuscarUno(int numero)
+        {
+            
+            foreach (Factura f in lista)
+            {
+                if (f.Numero==numero)
+                {
+                    return f;
+                }
+            }
+
+            return null;
+
+        }
+
+
+
         public List<Factura> BuscarTodasPorConcepto(string concepto)
         {
 

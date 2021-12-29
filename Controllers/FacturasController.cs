@@ -29,6 +29,14 @@ namespace mvcajax.Controllers
             return repo.BuscarTodas();
         }
 
+        [HttpGet ("{numero:int}")]
+        public Factura GetUno(int numero)
+        {
+
+            FacturaRepository repo = new FacturaRepository();
+            return repo.BuscarUno(numero);
+        }
+
         [HttpPost]
         public void Insertar(Factura factura)
         {
@@ -40,7 +48,6 @@ namespace mvcajax.Controllers
         [HttpDelete ("{numero:int}")]
         public void Borrar(int Numero)
         {
-
             FacturaRepository repo = new FacturaRepository();
             repo.Borrar(new Factura(Numero));
         }
