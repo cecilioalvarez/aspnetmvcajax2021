@@ -128,9 +128,10 @@
             },
             success: function (response) {
 
+               
+                $("#listado").show();
+                $("#edicion").hide();
                 buscarTodos();
-                $("#mitabla").show();
-                $("#detalle").hide();
             }
 
         });
@@ -141,6 +142,7 @@
     function buscarTodos() {
 
         $.getJSON("/api/facturas", function (datos) {
+            $("#mitabla").empty();
             for (let i = 0; i < datos.length; i++) {
 
                 $("#mitabla").append(`<tr>

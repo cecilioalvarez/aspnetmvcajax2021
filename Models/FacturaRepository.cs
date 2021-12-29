@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 namespace mvcajax.Models
 {
 
@@ -39,7 +40,9 @@ namespace mvcajax.Models
 
         public void Salvar (Factura factura){
 
+            Console.WriteLine("entra en salvar");
             int posicion =lista.IndexOf(factura);
+            
             Factura actual=lista[posicion];
             actual.Concepto=factura.Concepto;
             actual.Importe=factura.Importe;

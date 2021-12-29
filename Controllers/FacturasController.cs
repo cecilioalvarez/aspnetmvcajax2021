@@ -37,11 +37,16 @@ namespace mvcajax.Controllers
             return repo.BuscarUno(numero);
         }
         [HttpPut ("{numero:int}")]
-        public Factura Salvar(int numero,Factura factura)
+        public void Salvar(int numero,Factura factura)
         {
-
+            Console.WriteLine(numero);
+            Console.WriteLine(factura.Numero);
+            Console.WriteLine(factura.Concepto);
+            Console.WriteLine(factura.Importe);
+            
+            
             FacturaRepository repo = new FacturaRepository();
-            return repo.BuscarUno(numero);
+             repo.Salvar(factura);
         }
 
         [HttpPost]
