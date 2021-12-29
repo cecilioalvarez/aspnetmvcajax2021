@@ -52,35 +52,66 @@
     function borrar(numero) {
 
         $.ajax({
-                url: "/api/facturas/"+numero,
-                type: "DELETE",
-                contentType: "application/json; charset=utf-8",
-                error: function (response) {
-                    alert(response.responseText);
-                },
-                success: function (response) {
+            url: "/api/facturas/" + numero,
+            type: "DELETE",
+            contentType: "application/json; charset=utf-8",
+            error: function (response) {
+                alert(response.responseText);
+            },
+            success: function (response) {
 
-                    $("#mitabla").empty();
-                    buscarTodos();
-                }
-            
+                $("#mitabla").empty();
+                buscarTodos();
+            }
+
 
 
 
         });
 
-       
+
     }
 
-function detalle(numero) {
+    function detalle(numero) {
 
-        $.getJSON("/api/facturas/"+numero,function (factura) {
+        $.getJSON("/api/facturas/" + numero, function (factura) {
 
-                  
-        );
+            $("#listado").hide();
+            $("#detalle").show();
+            $("#detalle").empty()
+                .append(`<p>${factura.numero}</p>
+                    <p>${factura.concepto}</p>
+                    <p>${factura.importe}</p>
+                    <p><input type="button" value="volver" onclick="listado()"/></p>`);
+
+        });
     }
 
+    function editar(numero) {
 
+        $("#listado").hide();
+        $("#editar").show();
+
+         $.getJSON("/api/facturas/" + numero, function (factura) {
+
+                $("#numeroEditar").val(factura.numero);
+                $("#conceptoEditar").val(factura.concepto);
+                $("#importeEditar").val(factura.importe);
+                
+         });
+
+    }
+
+    function listado() {
+
+        $("#listado").show();
+        $("#detalle").hide();
+    }
+
+    function salvar() {
+
+        
+    }
 
     function buscarTodos() {
 
@@ -93,6 +124,7 @@ function detalle(numero) {
                                         <td>${datos[i].importe}</td>
                                         <td><a href="" onclick="borrar(${datos[i].numero});return false;">borrar</a>
                                         <td><a href="" onclick="detalle(${datos[i].numero});return false;">detalle</a>
+                                         <td><a href="" onclick="editar(${datos[i].numero});return false;">editar</a>
                                         </tr>`);
             }
         })
@@ -125,14 +157,30 @@ function detalle(numero) {
             Importe<input type="text" name="importe" id="importe" />
         </p>
         <p>
-            <input type="button" id="botonInsertar" value="aceptar" />
+            <input type="button" id="botonInsertar" value="aceptar" onclick="salvar()"/>
         </p>
     </form>
 </div>
 <div id="detalle">
-
     detalle
+</div>
 
+<div id="edicion">
+    edicion
+
+
+    <p>
+        Numero<input type="text" name="numero" id="numeroEditar" />
+    </p>
+    <p>
+        Concepto<input type="text" name="concepto" id="conceptoEditar" />
+    </p>
+    <p>
+        Importe<input type="text" name="importe" id="importeEditar" />
+    </p>
+    <p>
+        <input type="button" id="botonEditar" value="aceptar" />
+    </p>
 </div>
 
 

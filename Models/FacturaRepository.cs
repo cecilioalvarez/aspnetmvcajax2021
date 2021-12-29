@@ -37,6 +37,13 @@ namespace mvcajax.Models
             lista.Remove(factura);
         }
 
+        public void Salvar (Factura factura){
+
+            int posicion =lista.IndexOf(factura);
+            Factura actual=lista[posicion];
+            actual.Concepto=factura.Concepto;
+            actual.Importe=factura.Importe;
+        }
 
          public Factura BuscarUno(int numero)
         {
